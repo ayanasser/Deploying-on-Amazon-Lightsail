@@ -2,39 +2,62 @@
 IP: 18.184.82.150
 SSH Port: 2200
 Host Name  : ec2-18-184-82-150.eu-central-1.compute.amazonaws.com
+
 1-Now move your downloaded udacity.pem key into that folder.
+
 2-make our key secure type $ chmod 600 ~/.ssh/udacity.pem into the terminal.
+
 3-From the terminal type $ ssh -i ~/.ssh/udacity.pem ubuntu@18.184.82.150
+
 4-switch to the root user by typing sudo su -
+
 5-From the command line type $ sudo adduser grader.
+
 6-We must create a file to give the user grader superuser privileges. To do this type $ sudo nano /etc/sudoers.d/grader.
  create a new file that will be the superuser configuration for grader. When nano opens type grader ALL=(ALL:ALL)ALL anad save it .
+ 
 7-upgrading the current packages, and install new updates with these three commands:
      $ sudo apt-get update
      $ sudo apt-get upgrade
      $ sudo apt-get dist-upgrade
      
+     
 8-install a useful tool called Finger with the command $ sudo apt-get install finger.
  it allow us to see the users on this server.
+ 
 9-From a new terminal run the command: $ ssh-keygen -f ~/.ssh/udacity.rsa
+
 10-In the same terminal we need to read and copy the public key using the command: $ cat ~/.ssh/udacity.rsa.pub.
  Copy the key from the terminal.
+ 
 11-Run the command $ cd /home/grader to move to the folder.
+
 12-Create a directory called .ssh with the command $ mkdir .ssh
+
 13-Create a file to store the public key with the command $ touch .ssh/authorized_keys
+
 14-Edit that file using $ nano .ssh/authorized_keys and paste in the public key
+
 15-We must change the permissions of the file and its folder by running
 $ sudo chmod 700 /home/grader/.ssh
 $ sudo chmod 644 /home/grader/.ssh/authorized_keys 
+
 16-Change the owner of the .ssh directory from root to grader by using the command $ sudo chown -R grader:grader /home/grader/.ssh
+
 17-The last thing we need to do for the SSH configuration is restart its service with $ sudo service ssh restart
+
 18-Type $ ~. to disconnect from Amazon Lightsail server
+
 19-login with the grader account using ssh. From your local terminal type $ ssh -i ~/.ssh/udacity.rsa grader@18.184.82.150
+
 20-Lets enforce key authentication from the ssh configuration file by editing $ sudo nano /etc/ssh/sshd_config. 
 Find the line that says PasswordAuthentication and change it to no.
 Also find the line that says Port 22 and change it to Port 2200. Lastly change PermitRootLogin to no.
+
 21-Restart ssh again: $ sudo service ssh restart
+
 22-  log back through port 2200: $ ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@18.184.82.150
+
 passphrsa::aya12345
 23-From here we need to configure the firewall using these commands:
 $ sudo ufw allow 2200/tcp
